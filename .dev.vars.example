@@ -1,0 +1,11 @@
+# ============================================================
+# COPY this file to ".dev.vars" and paste REAL values there.
+# ".dev.vars" is git-ignored. Never commit it.
+# Used from Step 2 onward by the Cloudflare Worker proxy.
+# The browser never sees these values.
+# ============================================================
+AI_PROVIDER=gemini
+GEMINI_API_KEY=your_gemini_key_here
+GEMINI_MODEL=gemini-2.5-flash
+GROQ_API_KEY=your_groq_key_here
+GROQ_MODEL=llama-3.3-70b-versatile

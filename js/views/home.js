@@ -1,6 +1,7 @@
-/* Dashboard. Numbers stay at 0 until their features exist. */
+/* Dashboard. Numbers that depend on later steps stay at 0 until those steps exist. */
 import { el } from '../utils/dom.js';
 import { APP } from '../config.js';
+import { countFiles } from '../storage/db.js';
 
 function greeting() {
   const h = new Date().getHours();
@@ -9,20 +10,24 @@ function greeting() {
   return 'Good evening 🌙';
 }
 
-const STATS = [
-  { icon: '📄', label: 'PDFs uploaded',    value: 0, hint: 'Unlocks in Step 1' },
-  { icon: '✅', label: 'Topics covered',   value: 0, hint: 'Unlocks in Step 2' },
-  { icon: '🔥', label: 'Day streak',       value: 0, hint: 'Unlocks in Step 4' },
-  { icon: '🗓️', label: 'Events this week', value: 0, hint: 'Unlocks in Step 4' },
-];
-
 const ACTIONS = [
-  { icon: '📁', label: 'Open library',   href: '#/library' },
+  { icon: '📤', label: 'Upload a PDF',   href: '#/library' },
   { icon: '🧩', label: 'Open workspace', href: '#/workspace' },
   { icon: '📅', label: 'Plan my week',   href: '#/planner' },
 ];
 
-export function home() {
+export async function home() {
+  let pdfCount = 0;
+  try { pdfCount = await countFiles(); }
+  catch { /* storage blocked: show 0 instead of breaking the dashboard */ }
+
+  const stats = [
+    { icon: '📄', label: 'PDFs uploaded',    value: pdfCount, hint: 'Saved on this device' },
+    { icon: '✅', label: 'Topics covered',   value: 0,        hint: 'Unlocks in Step 2' },
+    { icon: '🔥', label: 'Day streak',       value: 0,        hint: 'Unlocks in Step 4' },
+    { icon: '🗓️', label: 'Events this week', value: 0,        hint: 'Unlocks in Step 4' },
+  ];
+
   return el('div', { class: 'home' },
     el('section', { class: 'card hero' },
       el('div', {},
@@ -35,7 +40,7 @@ export function home() {
     ),
 
     el('div', { class: 'stat-grid' },
-      STATS.map(s => el('article', { class: 'card' },
+      stats.map(s => el('article', { class: 'card' },
         el('div', { class: 'stat-icon' }, s.icon),
         el('div', { class: 'stat-value' }, String(s.value)),
         el('div', { class: 'stat-label' }, s.label),

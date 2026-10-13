@@ -147,3 +147,64 @@ body {
   .view { padding: 16px; }
   .hero-art { display: none; }
 }
+
+/* ==========================================================
+   Step 1: library, viewer, toasts
+========================================================== */
+.section-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.section-head h2 { margin: 0; font-size: 1.2rem; }
+
+.library { max-width: 1100px; display: flex; flex-direction: column; gap: 20px; }
+
+/* ---------- Dropzone ---------- */
+.dropzone {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;
+  padding: 28px 16px; cursor: pointer;
+  background: var(--surface); border: 2px dashed #c7cbe0; border-radius: var(--radius);
+  transition: background .15s, border-color .15s;
+}
+.dropzone:hover, .dropzone:focus-visible, .dropzone.is-over {
+  background: var(--primary-soft); border-color: var(--primary); outline: none;
+}
+.dropzone.is-busy { opacity: .7; cursor: progress; }
+.dropzone-icon { font-size: 2.2rem; }
+
+/* ---------- File cards ---------- */
+.file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+.file-card { display: flex; align-items: center; gap: 14px; padding: 16px; }
+.file-icon { font-size: 2rem; width: 52px; height: 52px; display: grid; place-items: center;
+  background: var(--primary-soft); border-radius: 12px; flex: none; }
+.file-body { min-width: 0; flex: 1; }
+.file-name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-meta { font-size: .8rem; margin-top: 2px; }
+.file-actions { display: flex; gap: 8px; flex: none; }
+.file-grid .empty { grid-column: 1 / -1; }
+
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn:focus-visible, .page-input:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* ---------- Viewer ---------- */
+.viewer { display: flex; flex-direction: column; gap: 14px; height: calc(100vh - 130px); min-height: 420px; }
+.viewer-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; }
+.tool-group { display: flex; align-items: center; gap: 8px; }
+.page-input { width: 64px; padding: 8px; font: inherit; text-align: center;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
+.zoom-label { min-width: 52px; text-align: center; font-weight: 600; }
+
+.viewer-scroll { flex: 1; overflow: auto; background: #e9ebf3; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px; }
+.viewer-status { text-align: center; color: var(--muted); padding: 48px 0; }
+.pdf-canvas { display: block; margin: 0 auto; background: #fff; box-shadow: 0 2px 14px rgba(16,24,40,.18); }
+.pdf-canvas[hidden], .viewer-status[hidden] { display: none; }
+
+/* ---------- Toasts ---------- */
+.toast-host { position: fixed; right: 18px; bottom: 18px; display: flex; flex-direction: column; gap: 8px; z-index: 50; }
+.toast { background: var(--text); color: #fff; padding: 10px 14px; border-radius: 10px; font-size: .9rem;
+  box-shadow: var(--shadow); max-width: 360px; }
+.toast-success { background: var(--success); }
+.toast-error { background: var(--danger); }
+
+@media (max-width: 760px) {
+  .viewer { height: calc(100vh - 220px); }
+  .file-card { flex-wrap: wrap; }
+}

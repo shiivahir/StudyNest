@@ -10,10 +10,6 @@ function placeholder({ icon, title, step, blurb }) {
   );
 }
 
-export const libraryView = placeholder({
-  icon: '📁', title: 'Your library', step: 'Step 1',
-  blurb: 'Upload PDFs and keep them safely on this device.',
-});
 export const workspaceView = placeholder({
   icon: '🧩', title: 'Study workspace', step: 'Step 5',
   blurb: 'Read your PDF and write notes side by side.',

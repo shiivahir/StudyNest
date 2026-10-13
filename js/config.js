@@ -2,5 +2,9 @@
 export const APP = {
   name: 'StudyNest',
   assistant: 'DRAXIL',
-  version: '0.1.0',
+  version: '0.2.0',
+};
+
+export const LIMITS = {
+  maxPdfMB: 25,   // per-file size cap (upload count limits arrive in Step 3)
 };
